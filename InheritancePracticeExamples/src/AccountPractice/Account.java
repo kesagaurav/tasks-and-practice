@@ -16,7 +16,7 @@ public class Account {
 	public Account(String accountNumber, double balance, Transaction[] transactions) {
 		this.accountNumber = accountNumber;
 		this.balance = balance;
-		this.type = type;
+	//	this.type = type;
 		this.transactions = transactions;
 	}
 	
