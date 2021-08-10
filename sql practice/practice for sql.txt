@@ -1,0 +1,228 @@
+mysql> create database movie;
+Query OK, 1 row affected (0.31 sec)
+
+mysql> use movie;
+Database changed
+mysql> create table movie(id int primary key auto_increment,name varchar(20),event varchar(22));
+Query OK, 0 rows affected (0.75 sec)
+
+mysql> insert into movie(name,event)values('pokiri','sangoma');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select name,event from movie;
++--------+---------+
+| name   | event   |
++--------+---------+
+| pokiri | sangoma |
++--------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into movie(id,name,event)values('pokiri','sangoma');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into movie(name,event)values('pokiri','sangoma');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into movie(id,name,event)values('pokiri','sangoma');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into movie(name,event)values('pokiri','sangoma');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select id,name,event from movie;
++----+--------+---------+
+| id | name   | event   |
++----+--------+---------+
+|  1 | pokiri | sangoma |
+|  2 | pokiri | sangoma |
++----+--------+---------+
+2 rows in set (0.04 sec)
+
+mysql> delete from movie where id=2;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select id,name,event from employee;
+ERROR 1146 (42S02): Table 'movie.employee' doesn't exist
+mysql> select id,name,event from movie;
++----+--------+---------+
+| id | name   | event   |
++----+--------+---------+
+|  1 | pokiri | sangoma |
++----+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into movie(name,event)values('avengers','long-distance-walks');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into movie(name,event)values('ironman','suit');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into movie(name,event)values('captainamerica','sheild');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into movie(name,event)values('nickfury','an one eye man');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from movie;
++----+----------------+---------------------+
+| id | name           | event               |
++----+----------------+---------------------+
+|  1 | pokiri         | sangoma             |
+|  3 | avengers       | long-distance-walks |
+|  4 | ironman        | suit                |
+|  5 | captainamerica | sheild              |
+|  6 | nickfury       | an one eye man      |
++----+----------------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> update table where id=3 where id=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table where id=3 where id=2' at line 1
+mysql> create table favoritemovie(id int primary key auto_increment,varchar(20) favorite_movie);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(20) favorite_movie)' at line 1
+mysql> create table favoritemovie(id int primary key auto_increment, favorite_movie varchar(22));
+Query OK, 0 rows affected (1.35 sec)
+
+mysql> insert into favoritemovie(favorite_movie)values('avengersageofultron');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into favoritemovie(favorite_movie)values('captain america the winter soldier');
+ERROR 1406 (22001): Data too long for column 'favorite_movie' at row 1
+mysql> insert into favoritemovie(favorite_movie)values('captain_ america_ the_ winter_soldier');
+ERROR 1406 (22001): Data too long for column 'favorite_movie' at row 1
+mysql> insert into favoritemovie(favorite_movie)values('captain_ the_ winter_soldier');
+ERROR 1406 (22001): Data too long for column 'favorite_movie' at row 1
+mysql> insert into favoritemovie(favorite_movie)values('captain_ winter_soldier');
+ERROR 1406 (22001): Data too long for column 'favorite_movie' at row 1
+mysql> insert into favoritemovie(favorite_movie)values('captain winter_soldier');
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into favoritemovie(favorite_movie)values('spiderman');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into favoritemovie(favorite_movie)values('batman');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into favoritemovie(favorite_movie)values('sherlockholmes');
+Query OK, 1 row affected (0.18 sec)
+ select id,favorite_movie from favoritemovie;
++----+------------------------+
+| id | favorite_movie         |
++----+------------------------+
+|  1 | avengersageofultron    |
+|  2 | captain winter_soldier |
+|  3 | spiderman              |
+|  4 | batman                 |
+|  5 | sherlockholmes         |
+
+
+
+
+
+
+mysql> create table favorite_movie(f_id int primary key auto_increment,name varchar(22),constraint f_fk foreign key(f_id) references movie(movie_id));
+Query OK, 0 rows affected (0.79 sec)
+
+mysql> insert into favorite_movie(name) values('avengersageofultron');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into favorite_movie(name) values('captainamericawintersoldier');
+ERROR 1406 (22001): Data too long for column 'name' at row 1
+mysql> insert into favorite_movie(name) values('captainwintersoldier');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into favorite_movie(name) values('justice leaguezacksynder');
+ERROR 1406 (22001): Data too long for column 'name' at row 1
+mysql> insert into favorite_movie(name) values('justice league');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into favorite_movie(name) values('avengersinfinitywar');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into favorite_movie(name) values('loki');
+Query OK, 1 row affected (0.11 sec)
+
+
+mysql> select * from favorite_movie;
++------+----------------------+
+| f_id | name                 |
++------+----------------------+
+|    1 | avengersageofultron  |
+|    2 | captainwintersoldier |
+|    3 | justice league       |
+|    4 | avengersinfinitywar  |
+|    5 | loki                 |
++------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select id,name,event from movie m inner join favorite_movie fm on m.movieid=fm.id;
+ERROR 1054 (42S22): Unknown column 'id' in 'field list'
+mysql> select id,name,event from movie m inner join favorite_movie fm on m.movie_id=fm.id;
+ERROR 1054 (42S22): Unknown column 'id' in 'field list'
+mysql> select id,name,event from movie m inner join favorite_movie fm on m.movie_id=fm.f_id;
+ERROR 1054 (42S22): Unknown column 'id' in 'field list'
+mysql> select * from movie m inner join favorite_movie fm on m.movie_id=fm.f_id; // this is inner join
++----------------+---------------------+----------+------+----------------------+
+| name           | event               | movie_id | f_id | name                 |
++----------------+---------------------+----------+------+----------------------+
+| pokiri         | sangoma             |        1 |    1 | avengersageofultron  |
+| avengers       | long-distance-walks |        2 |    2 | captainwintersoldier |
+| ironman        | suit                |        3 |    3 | justice league       |
+| captainamerica | sheild              |        4 |    4 | avengersinfinitywar  |
+| nickfury       | an one eye man      |        5 |    5 | loki                 |
++----------------+---------------------+----------+------+----------------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// this  is for right outer join
+mysql> select * from movie m right outer join favorite_movie fm on m.movie_id=fm.f_id;
++----------------+---------------------+----------+---------+------+----------------------+
+| name           | event               | movie_id | tickets | f_id | name                 |
++----------------+---------------------+----------+---------+------+----------------------+
+| pokiri         | sangoma             |        1 |    NULL |    1 | avengersageofultron  |
+| avengers       | long-distance-walks |        2 |    NULL |    2 | captainwintersoldier |
+| ironman        | suit                |        3 |    NULL |    3 | justice league       |
+| captainamerica | sheild              |        4 |    NULL |    4 | avengersinfinitywar  |
+| nickfury       | an one eye man      |        5 |    NULL |    5 | loki                 |
++----------------+---------------------+----------+---------+------+----------------------+
+5 rows in set (0.10 sec)
+
+
+
+// this is for left outer join
+mysql> select * from movie m left outer join favorite_movie fm on m.movie_id=fm.f_id;
++----------------+---------------------+----------+---------+------+----------------------+
+| name           | event               | movie_id | tickets | f_id | name                 |
++----------------+---------------------+----------+---------+------+----------------------+
+| pokiri         | sangoma             |        1 |    NULL |    1 | avengersageofultron  |
+| avengers       | long-distance-walks |        2 |    NULL |    2 | captainwintersoldier |
+| ironman        | suit                |        3 |    NULL |    3 | justice league       |
+| captainamerica | sheild              |        4 |    NULL |    4 | avengersinfinitywar  |
+| nickfury       | an one eye man      |        5 |    NULL |    5 | loki                 |
+| NULL           | NULL                |        6 |     200 | NULL | NULL                 |
+| NULL           | NULL                |        7 |     300 | NULL | NULL                 |
+| NULL           | NULL                |        8 |     450 | NULL | NULL                 |
+| NULL           | NULL                |        9 |     150 | NULL | NULL                 |
+| NULL           | NULL                |       10 |     700 | NULL | NULL                 |
++----------------+---------------------+----------+---------+------+----------------------+
+10 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
